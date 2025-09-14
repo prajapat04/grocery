@@ -9,12 +9,11 @@ export const authSeller = (req, res, next) => {
 
     const decoded = jwt.verify(sellerToken, process.env.JWT_SECRET);
 
-    // optionally check email if needed
     if (decoded.email !== process.env.SELLER_EMAIL) {
       return res.status(401).json({ message: "Unauthorized", success: false });
     }
 
-    req.seller = decoded; // attach decoded info to request
+    req.seller = decoded;
     next();
   } catch (error) {
     console.error("Authentication error:", error);
