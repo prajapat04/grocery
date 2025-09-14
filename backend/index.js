@@ -16,7 +16,9 @@ const app = express();
 
 connectDB();
 connectCloudinary();
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["http://localhost:5173", 
+                       "https://shimmering-brioche-89c04c.netlify.app"
+                       ];
 //middlewares
 app.use(express.json());
 app.use(cors({origin : allowedOrigins, credentials: true}));
