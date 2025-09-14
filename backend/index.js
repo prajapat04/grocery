@@ -24,7 +24,7 @@ connectCloudinary();
 // Allowed origins
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://gilded-pasca-2a3dce.netlify.app",
+  "https://brilliant-sawine-210726.netlify.app",
   "https://grocery-1-tnq8.onrender.com"
 ];
 
