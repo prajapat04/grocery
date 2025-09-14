@@ -17,7 +17,8 @@ const app = express();
 connectDB();
 connectCloudinary();
 const allowedOrigins = ["http://localhost:5173", 
-                       "https://shimmering-brioche-89c04c.netlify.app"
+                       "https://shimmering-brioche-89c04c.netlify.app",
+                        "https://grocery-1-tnq8.onrender.com"
                        ];
 //middlewares
 app.use(express.json());
