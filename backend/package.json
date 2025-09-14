@@ -1,17 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend for seller authentication and other APIs",
+  "main": "src/backend/index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-    
+    "start": "node src/backend/index.js",
+    "dev": "nodemon src/backend/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",
@@ -23,5 +22,8 @@
     "mongoose": "^8.15.1",
     "multer": "^2.0.0",
     "stripe": "^18.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
