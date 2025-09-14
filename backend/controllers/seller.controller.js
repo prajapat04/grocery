@@ -1,54 +1,63 @@
 import jwt from "jsonwebtoken";
 
-//seller login : /api/seller/login
-
-
-export const sellerLogin = async(req, res)=> {
+// SELLER LOGIN
+export const sellerLogin = async (req, res) => {
   try {
-    const {email, password}= req.body;
-    if(email === process.env.SELLER_EMAIL && password === process.env.SELLER_PASSWORD) {
-      const token = jwt.sign({email}, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-      });
-     res.cookie("sellerToken", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "Strict",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-});
-      res.status(200).json({message: "Login successful", success: true});
+    const { email, password } = req.body;
+
+    // Check for missing fields
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "All fields are required" });
     }
-     return res.status(401).json({ message: "Invalid email or password", success: false });
-  } catch (error) {
-    console.error("Error in sellerLogin:", error);
-    res.status(500).json({message: "Internal server error"});
+
+    // Only allow the specific seller email
+    if (email !== process.env.SELLER_EMAIL || password !== process.env.SELLER_PASSWORD) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+
+    // Create JWT for seller
+    const sellerToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+    res.cookie("sellerToken", sellerToken, {
+      httpOnly: true,
+      secure: true, // must be true for production https
+      sameSite: "None",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.json({ success: true, message: "Seller logged in successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 
-//logout seller : /api/seller/logout
+// SELLER LOGOUT
+export const sellerLogout = (req, res) => {
+  res.clearCookie("sellerToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  });
+  res.json({ success: true, message: "Seller logged out successfully" });
+};
 
-export const sellerLogout = async(req, res)=> {
-   try {
-    res.clearCookie("sellerToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "Strict",
-    });
-    res.status(200).json({ message: "Logout successfull", success: true });
-  } catch (error) {
-    console.error("Error in sellerLayout:", error);
-    res.status(500).json({message: "Internal server error" });
-  }
-}
-
-//cheak auth seller : api/seller/is-auth
-export const isAuthSeller = (req, res)=> {
+// IS-AUTH CHECK
+export const isAuthSeller = (req, res) => {
   try {
-    res.status(200).json({
-    success: true,
-    });
-  } catch (error) {
-    console.error("Error in isAuthSeller:", error);
-    res.status(500).json({message: "Internal server error"});
+    const { sellerToken } = req.cookies;
+    if (!sellerToken) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(sellerToken, process.env.JWT_SECRET);
+    if (decoded.email !== process.env.SELLER_EMAIL) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    res.json({ success: true, message: "Seller is authenticated" });
+  } catch (err) {
+    console.log(err);
+    res.status(401).json({ success: false, message: "Unauthorized" });
   }
 };
