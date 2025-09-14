@@ -6,13 +6,18 @@ export const authSeller = (req, res, next) => {
     if (!sellerToken) {
       return res.status(401).json({ message: "Unauthorized", success: false });
     }
+
     const decoded = jwt.verify(sellerToken, process.env.JWT_SECRET);
-    if(decoded.email === process.env.SELLER_EMAIL){ 
-      next();
+
+    // optionally check email if needed
+    if (decoded.email !== process.env.SELLER_EMAIL) {
+      return res.status(401).json({ message: "Unauthorized", success: false });
     }
-  
+
+    req.seller = decoded; // attach decoded info to request
+    next();
   } catch (error) {
-    console.error("Authemtication error:", error);
+    console.error("Authentication error:", error);
     return res.status(401).json({ message: "Unauthorized", success: false });
   }
-}
+};
