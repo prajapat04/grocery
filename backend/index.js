@@ -26,18 +26,28 @@ const allowedOrigins = [
   "https://grocery-1-tnq8.onrender.com"
 ];
 
-// Middlewares
-app.use(express.json());
+// Middleware: CORS with dynamic origin check
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true // important to send cookies cross-origin
+  origin: function(origin, callback){
+    // allow requests with no origin like Postman
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
 }));
+
+// Middleware
+app.use(express.json());
 app.use(cookieParser());
 
 // Serve uploaded images
 app.use("/images", express.static("uploads"));
 
-// API Routes
+// API routes
 app.use("/api/user", userRoutes);
 app.use("/api/seller", sellerRoutes);
 app.use("/api/product", productRoutes);
