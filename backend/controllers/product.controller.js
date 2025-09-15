@@ -52,7 +52,7 @@ export const getProducts = async (req, res) => {
 
 export const getProductsById = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const product = await Product.findById(id);
     if (!product) {
       return res
