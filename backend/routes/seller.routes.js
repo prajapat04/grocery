@@ -5,7 +5,7 @@ import { authSeller } from "../middlewares/authSeller.js";
 const router = express.Router();
 
 router.post("/login", loginSeller);
-router.post("/logout", authSeller, logoutSeller);
+router.post("/logout", logoutSeller);
 router.get("/is-auth", authSeller, isAuthSeller);
 
 export default router;
