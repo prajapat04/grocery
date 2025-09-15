@@ -8,7 +8,10 @@ export const authSeller = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.seller = decoded.id;
+
+    // Since we signed { email } in loginSeller
+    req.seller = decoded.email;
+
     next();
   } catch (error) {
     console.error("Seller Authentication error:", error.message);
