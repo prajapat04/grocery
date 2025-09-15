@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+
 const addressSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
@@ -10,7 +11,7 @@ const addressSchema = new mongoose.Schema({
   zipCode: { type: Number, required: true },
   country: { type: String, required: true },
   phone: { type: String, required: true },
-});
+}, { timestamps: true });
 
 const Address = mongoose.model("Address", addressSchema);
 export default Address;
