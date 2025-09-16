@@ -5,16 +5,21 @@ import { upload } from "../config/multer.js";
 
 const router = express.Router();
 
-// Add product (seller only)
-router.post("/add-product", authSeller, upload.array("image", 5), addProduct);
+// ✅ Add product (only seller can add, with image upload)
+router.post(
+  "/add-product",
+  authSeller,
+  upload.array("image", 5), // max 5 images
+  addProduct
+);
 
-// Get all products
+// ✅ Get all products
 router.get("/list", getProducts);
 
-// Get single product by ID
-router.get("/:id", getProductsById);
-
-// Update stock (seller only)
+// ✅ Update stock (seller only)
 router.patch("/stock", authSeller, changeStock);
+
+// ✅ Get single product by ID (keep this LAST to avoid route conflicts)
+router.get("/:id", getProductsById);
 
 export default router;
