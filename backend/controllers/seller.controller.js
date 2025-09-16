@@ -8,6 +8,11 @@ import jwt from "jsonwebtoken";
 export const loginSeller = async (req, res) => {
   try {
     const { email, password } = req.body;
+     console.log("📥 Incoming login request:");
+    console.log("req.body.email:", email);
+    console.log("req.body.password:", password);
+    console.log("process.env.SELLER_EMAIL:", process.env.SELLER_EMAIL);
+    console.log("process.env.SELLER_PASSWORD:", process.env.SELLER_PASSWORD);
     if (!email || !password) {
       return res.status(400).json({ success: false, message: "All fields required" });
     }
