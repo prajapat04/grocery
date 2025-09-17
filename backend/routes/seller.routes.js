@@ -1,11 +1,11 @@
 import express from "express";
-import { sellerLogin, sellerLogout, isAuthSeller } from "../controllers/seller.controller.js";
-import { authSeller } from "../middlewares/authSeller.js";
+import { isAuthSeller, sellerLogin, sellerLogout } from "../controllers/seller.controller.js";
+
 
 const router = express.Router();
 
-router.post("/login", sellerLogin);
-router.post("/logout", sellerLogout);
-router.get("/is-auth", authSeller, isAuthSeller);
+router.post('/login', sellerLogin);
+router.get('/is-auth', isAuthSeller, isAuthSeller);
+router.post('/logout', isAuthSeller, sellerLogout);
 
 export default router;
