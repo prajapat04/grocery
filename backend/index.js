@@ -18,17 +18,7 @@ connectDB();
 connectCloudinary();
 const allowedOrigins = ["http://localhost:5173", "https://shiny-torrone-a53de5.netlify.app", "https://grocery-1-tnq8.onrender.com"];
 //middlewares
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow Postman or server-to-server requests
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `CORS policy does not allow access from the Origin: ${origin}`;
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true, // allow cookies/auth
-}));
+app.use(cors({origin : allowedOrigins, credentials: true}));
 app.use(cookieParser());
 
 //api Endpointes
