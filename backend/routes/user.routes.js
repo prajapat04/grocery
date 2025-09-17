@@ -1,12 +1,15 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, isAuthUser } from "../controllers/user.controllers.js";
-
+import { authUser } from "../middlewares/authUser.js"; // middleware to verify JWT
 
 const router = express.Router();
 
+// Public routes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/logout", isAuthUser, logoutUser);
-router.get("/is-auth", isAuthUser, isAuthUser);
+
+// Protected routes
+router.post("/logout", authUser, logoutUser);
+router.get("/is-auth", authUser, isAuthUser);
 
 export default router;
