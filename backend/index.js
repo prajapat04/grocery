@@ -16,7 +16,7 @@ const app = express();
 
 connectDB();
 connectCloudinary();
-const allowedOrigins = ["http://localhost:5173", "https://jade-biscotti-127377.netlify.app", "https://grocery-1-tnq8.onrender.com"];
+const allowedOrigins = ["http://localhost:5173", "https://stunning-longma-462c74.netlify.app", "https://grocery-1-tnq8.onrender.com"];
 //middlewares
 app.use(express.json());
 app.use(cors({origin : allowedOrigins, credentials: true}));
@@ -38,3 +38,4 @@ app.listen(PORT, ()=> {
   console.log(`Server is runnig on port ${PORT}`);
 
 });
+
