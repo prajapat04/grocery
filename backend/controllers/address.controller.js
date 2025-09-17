@@ -6,7 +6,7 @@ export const addAddress = async (req, res) => {
     const userId = req.user;
      await Address.create({
       ...address,
-      userId: userId,
+      userId: req.user,
     });
     res
       .status(201)
@@ -26,3 +26,4 @@ export const getAddress = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
