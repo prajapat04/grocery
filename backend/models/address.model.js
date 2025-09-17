@@ -9,8 +9,9 @@ const addressSchema = new mongoose.Schema({
   state: { type: String, required: true },
   zipCode: { type: Number, required: true },
   country: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { type: Number, required: true },
 });
 
 const Address = mongoose.model("Address", addressSchema);
+
 export default Address;
