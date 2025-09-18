@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const authSeller = (req, res, next) => {
   try {
+     console.log("authSeller cookies:", req.cookies); 
     const { token } = req.cookies; // read cookie
     if (!token) {
       return res.status(401).json({ message: "Unauthorized", success: false });
@@ -18,4 +19,5 @@ export const authSeller = (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized", success: false });
   }
 };
+
 
