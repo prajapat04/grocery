@@ -14,7 +14,7 @@ export const sellerLogin = async (req, res) => {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     // ✅ Set cookie properly for cross-origin (Netlify <-> Render)
-    res.cookie("sellerToken", token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: true,       // Render = HTTPS → must be true
       sameSite: "None",   // allow cross-site cookie
@@ -50,4 +50,5 @@ export const isAuthSeller = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error checking auth", success: false });
   }
+
 };
