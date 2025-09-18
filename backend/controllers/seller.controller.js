@@ -14,7 +14,7 @@ export const sellerLogin = async (req, res) => {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     // ✅ Set cookie properly for cross-origin (Netlify <-> Render)
-    res.cookie("token", token, {
+    res.cookie("sellerToken", token, {
       httpOnly: true,
       secure: true,       // Render = HTTPS → must be true
       sameSite: "None",   // allow cross-site cookie
@@ -34,7 +34,7 @@ export const sellerLogin = async (req, res) => {
 export const sellerLogout = async (req, res) => {
   res.clearCookie("sellerToken", {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "None",
   });
   res.json({ message: "Logged out", success: true });
@@ -52,3 +52,4 @@ export const isAuthSeller = async (req, res) => {
   }
 
 };
+
