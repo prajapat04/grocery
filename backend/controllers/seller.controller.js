@@ -16,7 +16,7 @@ export const sellerLogin = async (req, res) => {
     // ✅ Set cookie properly for cross-origin (Netlify <-> Render)
     res.cookie("sellerToken", token, {
       httpOnly: true,
-      secure: true,       // Render = HTTPS → must be true
+      secure: process.env.NODE_ENV === "production",       // Render = HTTPS → must be true
       sameSite: "None",   // allow cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -52,4 +52,5 @@ export const isAuthSeller = async (req, res) => {
   }
 
 };
+
 
