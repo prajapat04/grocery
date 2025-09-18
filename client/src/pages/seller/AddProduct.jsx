@@ -25,7 +25,10 @@ const AddProduct = () => {
           for(let i = 0; i < files.length; i++){
             formData.append("image", files[i]);
           }
-          const {data}= await axios.post("/api/product/add-product", formData,  { withCredentials: true });
+          const {data}= await axios.post("/api/product/add-product", formData,  {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
           if(data.success){
             toast.success(data.message)
             setName("");
@@ -35,10 +38,14 @@ const AddProduct = () => {
             setCategory("");
             setFiles([]);
           } else{
-            toast.error(data.message);
+             toast.error(data.message || "Failed to add product");
           }
       } catch (error) {
-        
+        if (error.response?.status === 401) {
+          toast.error("Unauthorized. Please log in as seller again.");
+        } else {
+          toast.error(error.response?.data?.message || error.message);
+        }
       }
     };
 
@@ -106,7 +113,7 @@ const AddProduct = () => {
                         type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
                     </div>
                 </div>
-                <button className="px-8 py-2.5 bg-indigo-500 text-white font-medium rounded">ADD</button>
+                <button className="px-8 py-2.5 bg-indigo-500 text-white font-medium rounded cursor-pointer">ADD</button>
             </form>
         </div>
     );

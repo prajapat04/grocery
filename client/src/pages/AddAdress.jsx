@@ -23,7 +23,7 @@ const AddAdress =()=> {
   const submitHandle = async (e) => {
   try {
       e.preventDefault();
-      const {data}= await axios.post("/api/address/add", {address});
+      const {data}= await axios.post("/api/address/add", {address}, { withCredentials: true });
       if(data.success){
         toast.success(data.message);
         navigate("/cart");
@@ -40,7 +40,7 @@ const AddAdress =()=> {
     if(!user){
       navigate("/cart");
     }
-  }, [])
+  }, [user, navigate])
 
   return (
      <div className="mt-12 flex flex-col md:flex-row gap-6 p-6 bg-gray-100 rounded-lg shadow-md">

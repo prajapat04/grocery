@@ -14,7 +14,7 @@ const Products = () => {
     } else {
       setFilterdProducts(products);
     }
-  }, [Products, searchQuery]);
+  }, [products, searchQuery]);
   return (
     <div className='mt-16'>
       <h1 className='text-3xl lg:text-4xl font-medium'>All Products</h1>

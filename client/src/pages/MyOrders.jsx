@@ -38,11 +38,11 @@ export const MyOrders = () => {
           </p>
           {
          order.items.map((item, index)=> (
-          <div key={index} className={`relative bg-white text-gray-800/70 ${order.items.length === !index + 1 && "border-b"} 
+          <div key={index} className={`relative bg-white text-gray-800/70 ${index !== order.items.length - 1 ? "border-b border-gray-300" : ""} 
           border-gray-300 flex flex-col md:flex-row md:items-center justify-between p-4 py-5 w-full max-w-4xl`}>
             <div className='flex items-center mg-4 md:mb-0'>
               <div className='p-4 rounded-lg'>
-                <img src={`http://localhost:5000/images/${item.product.image[0]}`} alt="" className='w-16 h-16' />
+                <img src={`https://grocery-1-tnq8.onrender.com/images/${item.product.image[0]}`} alt="" className='w-16 h-16' />
               </div>
               <div className='ml-4 '>
                 <h2 className='text-xl font-medium'>{item.product.name}</h2>

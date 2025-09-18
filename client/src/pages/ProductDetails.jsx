@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { Link, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
-const productDetails = () => {
+const ProductDetails = () => {
 
   const { products, addToCart, navigate } = useContext(AppContext);
   const { id } = useParams();
@@ -26,14 +26,14 @@ const productDetails = () => {
         <div className="flex gap-3">
           <div className="flex flex-col gap-3">
             {product.image.map((image, index) => (
-              <div key={index} onClick={() => setThumbnail(`http://localhost:5000/images/${image}`)} className="border max-w-24 border-gray-500/30 rounded overflow-hidden cursor-pointer" >
-                <img src={`http://localhost:5000/images/${product.image[0]}`} alt={`Thumbnail ${index + 1}`} />
+              <div key={index} onClick={() => setThumbnail(`https://grocery-1-tnq8.onrender.com/images/${image}`)} className="border max-w-24 border-gray-500/30 rounded overflow-hidden cursor-pointer" >
+                <img src={`https://grocery-1-tnq8.onrender.com/images/${image}`} alt={`Thumbnail ${index + 1}`} />
               </div>
             ))}
           </div>
 
           <div className="border border-gray-500/30 max-w-100 rounded overflow-hidden">
-            <img src={`http://localhost:5000/images/${thumbnail}`} alt="Selected product" className="w-full h-full object-cover" />
+            <img src={`https://grocery-1-tnq8.onrender.com/images/${thumbnail}`} alt="Selected product" className="w-full h-full object-cover" />
           </div>
         </div>
 
@@ -41,7 +41,7 @@ const productDetails = () => {
           <h1 className="text-3xl font-medium">{product.name}</h1>
 
           <div className='flex items-center gap-0.5'>
-            {Array(5).fill('').map((_, i) => (<img key={i} src={i < 4 ? assets.star_icon : assets.star_dull_icon} alt="rating" className='w-3 md:3.5' />))}
+            {Array(5).fill('').map((_, i) => (<img key={i} src={i < 4 ? assets.star_icon : assets.star_dull_icon} alt="rating" className='w-3 md:w-3.5' />))}
             <p>(4)</p>
           </div>
 
@@ -76,4 +76,4 @@ const productDetails = () => {
   );
 };
 
-export default productDetails;
+export default ProductDetails;

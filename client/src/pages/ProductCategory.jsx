@@ -11,7 +11,7 @@ export const ProductCategory = () => {
   const searchCategory = categories.find((item) => item.path.toLowerCase() === category.toLowerCase());
 
   const filterProduct = products.filter((product) =>
-    product.category.toLowerCase()=== category
+    product.category.toLowerCase()=== category.toLowerCase()
   );
   return (
     <div className='mt-16'>
@@ -25,8 +25,8 @@ export const ProductCategory = () => {
           <div>
             <div className='my-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center justify-center'>
               {
-                filterProduct.map((prodcut, index) => (
-                  <ProductCart key={index} product={prodcut} />
+                filterProduct.map((product, index) => (
+                  <ProductCart key={index} product={product} />
                 ))
               }
             </div>
