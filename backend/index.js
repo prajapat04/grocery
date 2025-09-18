@@ -21,6 +21,9 @@ const allowedOrigins = ["http://localhost:5173", "https://shiny-torrone-a53de5.n
 app.use(cors({origin : allowedOrigins, credentials: true}));
 app.use(cookieParser());
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //api Endpointes
 
 app.use("/images", express.static("uploads"));
@@ -37,6 +40,7 @@ app.listen(PORT, ()=> {
   console.log(`Server is runnig on port ${PORT}`);
 
 });
+
 
 
 
