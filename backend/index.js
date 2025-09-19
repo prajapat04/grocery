@@ -37,11 +37,12 @@ app.use("/api/order", orderRoutes);
 app.use("/api/address", addressRoutes); 
 
 const PORT=process.env.PORT || 4000;
-app.get('/' (req, res) => res.send("API is working"));
+
 app.listen(PORT, ()=> {
   console.log(`Server is runnig on port ${PORT}`);
 
 });
+
 
 
 
