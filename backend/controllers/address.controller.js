@@ -7,9 +7,7 @@ export const addAddress = async (req, res) => {
       ...address,
       userId
     });
-    res
-      .status(201)
-      .json({ success: true, message: "Address added successfully" });
+    res.status(201).json({ success: true, message: "Address added successfully" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Internal Server Error" });
@@ -27,3 +25,4 @@ export const getAddress = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
