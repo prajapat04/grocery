@@ -2,23 +2,26 @@ import jwt from "jsonwebtoken";
 
 export const authSeller = (req, res, next) => {
   try {
-     console.log("authSeller cookies:", req.cookies); 
     const { sellerToken } = req.cookies; // read cookie
     if (!sellerToken) {
-      return res.status(401).json({ message: "Unauthorized", success: false });
+      return res.json({ message: "Unauthorized", success: false });
     }
 
     // verify JWT
     const decoded = jwt.verify(sellerToken, process.env.JWT_SECRET);
-
+    if(decoded.email === process.env.SELLER_EMAIL){
     // attach seller data to request
-    req.seller = decoded;
-    next();
+    // req.seller = decoded
+    next(); 
+    } else{
+    return res.json({success: false, message: 'Not Authrized'});
+    }
   } catch (error) {
     console.error("authSeller error:", error.message);
     return res.status(401).json({ message: "Unauthorized", success: false });
   }
 };
+
 
 
 
