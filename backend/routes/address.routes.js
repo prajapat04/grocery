@@ -5,5 +5,6 @@ import { addAddress, getAddress } from "../controllers/address.controller.js";
 const router = express.Router();
 
 router.post("/add", authUser, addAddress);
-router.get("/get", authUser, getAddress);
+router.post("/get", authUser, getAddress);
+
 export default router;
