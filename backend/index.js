@@ -18,10 +18,12 @@ connectDB();
 connectCloudinary();
 const allowedOrigins = ["https://sparkling-phoenix-cd896e.netlify.app", "https://grocery-1-tnq8.onrender.com"];
 //middlewares
-app.use(cors({origin : allowedOrigins, credentials: true}));
-app.use(cookieParser());
-
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors({origin : allowedOrigins, credentials: true}));
+
+
+
 app.use(express.urlencoded({ extended: true }));
 
 //api Endpointes
@@ -35,11 +37,12 @@ app.use("/api/order", orderRoutes);
 app.use("/api/address", addressRoutes); 
 
 const PORT=process.env.PORT || 4000;
-
+app.get('/' (req, res) => res.send("API is working"));
 app.listen(PORT, ()=> {
   console.log(`Server is runnig on port ${PORT}`);
 
 });
+
 
 
 
