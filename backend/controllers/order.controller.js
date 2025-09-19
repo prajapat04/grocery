@@ -4,9 +4,8 @@ import Product from "../models/product.model.js";
 // Place order COD: /api/order/cod
 export const placeOrderCOD = async (req, res) => {
   try {
-    const userId = req.user;
-    const { items, address } = req.body;
-    if (!address || !items || items.length === 0) {
+    const { userId, items, address } = req.body;
+    if (!address || items.length === 0) {
       return res
         .status(400)
         .json({ message: "Invalid order details", success: false });
@@ -31,14 +30,14 @@ export const placeOrderCOD = async (req, res) => {
       .status(201)
       .json({ message: "Order placed successfully", success: true });
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+   return res.json({success: false, message: error.message});
   }
 };
 
 // oredr details for individual user :/api/order/user
 export const getUserOrders = async (req, res) => {
   try {
-    const userId = req.user;
+    const { userId } = req.body;
     const orders = await Order.find({
       userId,
       $or: [{ paymentType: "COD" }, { isPaid: true }],
