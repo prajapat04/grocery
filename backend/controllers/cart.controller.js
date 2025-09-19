@@ -4,9 +4,8 @@ import User from "../models/user.model.js";
 
 export const updateCart = async (req, res) => {
   try {
-    const userId = req.user;
-    const { cartItems } = req.body;
-    const updateUser = await User.findByIdAndUpdate(
+    const {userId, cartItems } = req.body;
+    await User.findByIdAndUpdate(
       userId,
       { cartItems },
       { new: true });
@@ -18,3 +17,4 @@ export const updateCart = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
