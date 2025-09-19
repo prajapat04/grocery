@@ -9,6 +9,7 @@ router.post("/login", sellerLogin);
 
 // Protected routes
 router.get("/is-auth", authSeller, isAuthSeller);
-router.post("/logout", authSeller, sellerLogout);
+router.get("/logout", authSeller, sellerLogout);
 
 export default router;
+
