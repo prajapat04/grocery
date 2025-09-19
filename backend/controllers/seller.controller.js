@@ -20,10 +20,7 @@ export const sellerLogin = async (req, res) => {
       sameSite: "None",   // allow cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-
-    console.log("✅ Seller logged in, cookie set:", token);
-
-    res.json({ message: "Login successful", success: true });
+    return res.json({ message: "Login successful", success: true });
   } catch (error) {
     console.error("Seller login error:", error.message);
     res.status(500).json({ message: "Internal server error", success: false });
@@ -52,5 +49,6 @@ export const isAuthSeller = async (req, res) => {
   }
 
 };
+
 
 
