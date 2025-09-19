@@ -43,12 +43,13 @@ export const isAuthSeller = async (req, res) => {
     if (!req.seller) {
       return res.status(401).json({ message: "Unauthorized", success: false });
     }
-    res.json({ message: "Seller authenticated", success: true, seller: req.seller });
+    return res.json({ message: "Seller authenticated", success: true, seller: req.seller });
   } catch (error) {
     res.status(500).json({ message: "Error checking auth", success: false });
   }
 
 };
+
 
 
 
