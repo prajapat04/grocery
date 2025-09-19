@@ -103,7 +103,7 @@ export const logoutUser = async(req, res)=> {
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "Strict",
     });
-    res.json({ message: "User Logged out successfully", success: true });
+     return res.json({ message: "User Logged out successfully", success: true });
   } catch (error) {
     console.log(error);
     res.status(500).json({message: "Internal server error" });
@@ -129,4 +129,5 @@ export const isAuthUser = async(req, res)=> {
     console.log(error);
     res.status(500).json({message: "Internal server error"});
   }
+
 }
