@@ -1,4 +1,4 @@
-import {v2 as cloudinary} from "cloudinary.js"
+import {v2 as cloudinary} from "cloudinary"
 import Product from "../models/product.model.js"
 
 export const addProduct = async (req, res)=>{
@@ -67,4 +67,5 @@ export const changeStock = async (req, res) => {
     res.json({success: false, message: error.message})
   }
 };
+
 
